@@ -9,15 +9,6 @@
     "jest": "jest",
     "start": "node ./server/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/n-app/N-appbnb-description-listing.git"
-  },
-  "author": "tonaramos",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/n-app/N-appbnb-description-listing/issues"
-  },
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
@@ -28,7 +19,6 @@
     "react-dom": "^16.4.0",
     "request": "^2.87.0"
   },
-  "homepage": "https://github.com/n-app/N-appbnb-description-listing#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",

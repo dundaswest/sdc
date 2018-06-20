@@ -1,4 +1,4 @@
-//const db = require('../database/index');
+const db = require('../database/index');
 
 const loremIpsum = [
   'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur',
@@ -38,7 +38,7 @@ const names = [
   "Kofi", "Taegan", "Tye", "Manas", "Caidan", "Toby", "AJ", "Kori", "Arturo", "Diarmid",
   "Lennex", "Rishi", "Kalum", "Walter", "Surien", "Lochlann", "Kory", "Kelvan", "Darren",
   "Rogan", "Codie", "Maisum", "Obosa", "Shazil", "Lawrie", "Aleksandar", "Jae", "Bertie",
-  "Killian", "Suraj", "Joss", "Kerr", "Miguel", "Albie", "Pietro", "Kruz", "Ceejay", "Zuriel", 
+  "Killian", "Suraj", "Joss", "Kerr", "Miguel", "Albie", "Pietro", "Kruz", "Ceejay", "Zuriel",
   "Lachlann", "Teagan", "Deegan", "Zachary-Marc", "Madison-Jake", "Alvin", "Rorie",
   "Carson", "Thiago", "Dyllan", "Russell", "Kurtis-Jae", "Magnus", "Rudi", "Tian",
   "Aryian", "Immanuel", "Jacki", "Sorley", "Roger", "Tayye", "Fares", "Abir", "Solomon",

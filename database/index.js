@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const dataGen = require('../aDataGenerator/dataGenerator.js');
 
-mongoose.connect(process.env.MONGOURL);
+mongoose.connect(process.env.MONGOURL || 'mongodb://localhost/roomsDatas');
 
 const db = mongoose.connection;
 
@@ -47,7 +48,7 @@ const roomsData = mongoose.model('roomsData', roomSchema);
 
 const save = (roomArray, callback) => {
   roomArray.forEach((room) => {
-    const item = new Room(room);
+    const item = new roomsData(room);
 
     item.save((err) => {
       if (err) return console.error(err);
