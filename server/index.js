@@ -7,7 +7,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, '../public')));
+app.use('/:id', express.static(path.join(__dirname, '../public')));
 
 app.use('/rooms', roomsRoutes);
 
@@ -29,8 +29,16 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
+app.get('/house/:id/', (req, res) => {
+/*  db.getHouseInfo(req.params.id, (err, data) => {
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      res.send(data);
+    }
+  });
+  */
+});
 
 const port = 8081;
 app.listen(port, () => console.log(`listening on port ${port}`));

@@ -23,7 +23,9 @@ class App extends React.Component {
   }
 
   getHomeData(id) {
-    axios.get(`/rooms/${id}`)
+    let endpoint = window.location.pathname;
+    console.log(endpoint);
+    axios.get(`/rooms${endpoint}`)
       .then((response) => {
         const homeData = response.data[0];
         this.setState({ home: homeData });
@@ -33,7 +35,7 @@ class App extends React.Component {
       });
   }
 
-  
+
   render() {
     if (this.state.home) {
       return (
