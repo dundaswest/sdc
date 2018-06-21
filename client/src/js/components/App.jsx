@@ -24,7 +24,6 @@ class App extends React.Component {
 
   getHomeData(id) {
     let endpoint = window.location.pathname;
-    console.log(endpoint);
     axios.get(`/rooms${endpoint}`)
       .then((response) => {
         const homeData = response.data[0];
