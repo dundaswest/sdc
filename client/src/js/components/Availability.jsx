@@ -15,7 +15,7 @@ const Availability = (props) => {
     10: 'Nov',
     11: 'Dec',
   };
-
+  //{startDate: "2018-08-10T07:00:00.000Z", endDate: "2018-09-25T07:00:00.000Z", nightsOfMinimumStay: 6}
   const stayRange = props.data.nightsOfMinimumStayForDateRange.map((item, i) => {
     const startDate = new Date(item.startDate);
     const endDate = new Date(item.endDate);

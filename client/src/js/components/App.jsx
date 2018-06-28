@@ -22,6 +22,7 @@ class App extends React.Component {
       host: {},
       highlights: [],
       description: [],
+      nightsOfMinimumStayForDateRange: [{startDate: "2018-08-10T07:00:00.000Z", endDate: "2018-09-25T07:00:00.000Z", nightsOfMinimumStay: 6}],
       amenities: [{title:"Basic",contents:[]},
       {title:"Dining",contents:[]},
       {title:"Facilities",contents:[]},
@@ -29,15 +30,18 @@ class App extends React.Component {
       {title:"Logistics",contents:[]},
       {title:"Not Included",contents:[]},
       ],
+      cancellation : {}
     }
   }
   componentDidMount() {
     this.getHomeData(Math.floor(Math.random() * (100)) + 1000);
     this.getHome();
+    this.getCancellation();
     this.getHost();
     this.getHighlights();
     this.getDescriptions();
     this.getAmenities();
+
   }
 
   getHome() {
@@ -87,7 +91,18 @@ class App extends React.Component {
     const endpoint = parseInt(this.state.houseId);
     axios.get(`/api/house/${endpoint}/amenities`)
       .then((response) => {
-        this.setState({ amenities: this.state.amenities[0].contents.concat(response.data)});
+        this.setState({ amenities: response.data});
+      })
+      .catch((err) => {
+        console.error('error at clientfetching', err);
+      });
+  }
+  getCancellation() {
+    const endpoint = parseInt(this.state.houseId);
+    axios.get(`/api/house/${endpoint}/cancellation`)
+      .then((response) => {
+        this.setState({ cancellation: response.data[0]});
+        console.log(response.data[0])
       })
       .catch((err) => {
         console.error('error at clientfetching', err);
@@ -128,7 +143,8 @@ class App extends React.Component {
           </div>
           <SleepingArrangements data={this.state.home} />
           <HouseRules data={this.state.home} />
-          <Cancellations data={this.state.home} />
+          <Cancellations data={this.state.cancellation} />
+
         </div>
     );
   }

@@ -8,9 +8,9 @@ const pool = new pg.Pool({
   database: 'jamie',
   port: '5432'
 });
-
-let way = path.join(__dirname,'/description.csv');
-pool.query(`copy descriptions FROM '${way}' DELIMITER ',' csv header`, (err, res) => {
+//\copy house_amenities FROM ./house_amenities.csv DELIMITER ',' csv header
+let way = path.join(__dirname,'/house_amenities.csv');
+pool.query(`copy house_amenities FROM '${way}' DELIMITER ',' csv header`, (err, res) => {
   console.log(err, res);
   pool.end();
 });
@@ -68,5 +68,9 @@ pool.query(`copy real_host FROM '${way}' DELIMITER ',' csv header`, (err, res) =
 
 ///cat host.csv | couchimport --url http://localhost:5984 --db hosts--delimiter ‘,’
 module.exports = {
-  query: (text, params) => pool.query(text, params)
+  query: (text, params) => pool.query(text, params),
 }
+
+
+
+/// CREATE INDEX house_idx ON house_highlight USING btree(house_id);

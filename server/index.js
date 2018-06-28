@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const roomsRoutes = require('./Rooms');
 const path = require('path');
+const nr = require('newrelic');
 
 const app = express();
 const router = express.Router();
@@ -110,7 +111,33 @@ app.get('/api/house/:houseId/highlights', (req,res) => {
     if(err) {
       return console.log(err);
     } else {
-      db.query(`SELECT * FROM highlights where id <= 3`,(err,table)=> {
+      db.query(`SELECT highlights.title, highlights.comment
+      FROM highlights
+      INNER JOIN house_highlight ON highlights.id = house_highlight.highlight_id
+      WHERE house_highlight.house_id = ${id}`,(err,table)=> {
+        done();
+        if(err) {
+          return console.log(err);
+        } else {
+          db.end();
+          console.log(table.rows)
+          res.status(200).send(table.rows);
+        }
+      })
+    }
+  })
+});
+
+app.get('/api/house/:houseId/amenities', (req,res) => {
+  const id = req.params.houseId;
+  pool.connect((err,db,done) => {
+    if(err) {
+      return console.log(err);
+    } else {
+      db.query(`SELECT amenities.name, amenities.description
+      FROM amenities
+      INNER JOIN house_amenities ON amenities.id = house_amenities.amenity_id
+      WHERE house_amenities.house_id = ${id}`,(err,table)=> {
         done();
         if(err) {
           return console.log(err);
@@ -162,6 +189,27 @@ app.get('/api/house/:houseId/amenities', (req,res) => {
     }
   })
 });
+
+app.get('/api/house/:houseId/cancellation', (req,res) => {
+  const id = req.params.houseId;
+  pool.connect((err,db,done) => {
+    if(err) {
+      return console.log(err);
+    } else {
+      db.query(`select * from cancellation where id = 2`,(err,table)=> {
+        done();
+        if(err) {
+          return console.log(err);
+        } else {
+          db.end();
+          console.log(table.rows)
+          res.status(200).send(table.rows);
+        }
+      })
+    }
+  })
+});
+
 app.put('/api/house/:houseId', (req,res) => {
   const id = req.params.houseId;
   pool.connect((err,db,done) => {

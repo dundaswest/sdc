@@ -19,13 +19,13 @@ class Cancellations extends React.Component {
   }
 
   render() {
-    const cancellationType = this.state[this.props.data.cancellationType];
+    const cancellationType = this.state[this.props.data.cancel_type];
     const cancellationText = this.state.showCancellation
       ? (
         <div className="rulesDisplay">
           <div>
             <div className="cancellationParagraph">
-              {this.props.data.cancellationSummary}
+              {this.props.data.cancel_summary}
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@ class Cancellations extends React.Component {
         <div className="rulesDisplay">
           <div className="rulesDescription" className="cancellationParagraph">
             <span>
-              {this.props.data.cancellationSummary.slice(0, 130).concat('...')}
+
             </span>
             <button onClick={this.showCancellationDescription} className="readMoreButton">Read more</button>
           </div>

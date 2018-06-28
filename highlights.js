@@ -4,17 +4,17 @@ const faker = require('faker');
 const writeStream = fs.createWriteStream('highlights.csv');
 
 const write = (writer, data, encoding, callback) => {
-  let i = 100001;
+  let i = 30000001;
   write();
   function write() {
     let ok = true;
     do {
       i--;
-      if (i === 100000) {
+      if (i === 30000000) {
         writer.write(`id,title,comment\n`, encoding, callback);
       } else {
         let data = `${faker.lorem.word()},${faker.lorem.sentence()}`;
-        let index = 100000- i;
+        let index = 30000000 - i;
         ok = writer.write(`${index},${data}\n`, encoding);
       }
     } while (i > 0 && ok);
