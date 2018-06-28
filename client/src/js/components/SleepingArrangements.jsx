@@ -39,9 +39,9 @@ const SleepingArrangements = (props) => {
 
   const randomInteger = (min, max) => Math.floor(Math.random() * ((max - min) + 1)) + min;
 
-  let guests = props.data.numberOfGuests;
-  const beds = props.data.numberBeds;
-  const rooms = props.data.numberOfRooms;
+  let guests = props.data.num_guests;
+  const beds = props.data.num_beds;
+  const rooms = props.data.num_rooms;
 
   const addBed = (guest) => {
     if (guest === 1) {

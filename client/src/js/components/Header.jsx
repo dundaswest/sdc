@@ -8,8 +8,8 @@ const Header = (props) => {
         <div className="listingLocation" >{props.data.location}</div>
       </div>
       <div className="headerOwnerInfo">
-        <img className="ownerImage" alt="home owner" src={props.data.ownerPicture_Url} />
-        <div className="ownerName">{props.data.owner}</div>
+        <img className="ownerImage" alt="home owner" src={props.host.pictureurl} />
+        <div className="ownerName">{props.host.name}</div>
       </div>
     </hgroup>
   );

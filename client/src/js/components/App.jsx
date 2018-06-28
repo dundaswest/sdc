@@ -15,19 +15,92 @@ import '../../../css/main.css';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      houseId: window.location.pathname.match(/[0-9]/gi).join(''),
+      home: {},
+      oldHome: {},
+      host: {},
+      highlights: [],
+      description: [],
+      amenities: [{title:"Basic",contents:[]},
+      {title:"Dining",contents:[]},
+      {title:"Facilities",contents:[]},
+      {title:"Guess access",contents:[]},
+      {title:"Logistics",contents:[]},
+      {title:"Not Included",contents:[]},
+      ],
+    }
   }
-
   componentDidMount() {
     this.getHomeData(Math.floor(Math.random() * (100)) + 1000);
+    this.getHome();
+    this.getHost();
+    this.getHighlights();
+    this.getDescriptions();
+    this.getAmenities();
+  }
+
+  getHome() {
+    const endpoint = parseInt(this.state.houseId);
+    axios.get(`/api/house/${endpoint}`)
+      .then((response) => {
+        console.log('myhouse', response.data);
+        this.setState({ home: response.data[0] });
+      })
+      .catch((err) => {
+        console.error('error at clientfetching', err);
+      });
+  }
+
+  getHost() {
+    const endpoint = parseInt(this.state.houseId);
+    axios.get(`/api/house/${endpoint}/host`)
+      .then((response) => {
+        this.setState({ host: response.data[0] });
+      })
+      .catch((err) => {
+        console.error('error at clientfetching', err);
+      });
+  }
+  getHighlights() {
+    const endpoint = parseInt(this.state.houseId);
+    axios.get(`/api/house/${endpoint}/highlights`)
+      .then((response) => {
+        this.setState({ highlights: this.state.highlights.concat(response.data) });
+      })
+      .catch((err) => {
+        console.error('error at clientfetching', err);
+      });
+  }
+  getDescriptions() {
+    const endpoint = parseInt(this.state.houseId);
+    axios.get(`/api/house/${endpoint}/description`)
+      .then((response) => {
+        this.setState({ description: this.state.description.concat(response.data) });
+      })
+      .catch((err) => {
+        console.error('error at clientfetching', err);
+      });
+  }
+
+  getAmenities() {
+    const endpoint = parseInt(this.state.houseId);
+    axios.get(`/api/house/${endpoint}/amenities`)
+      .then((response) => {
+        this.setState({ amenities: this.state.amenities[0].contents.concat(response.data)});
+      })
+      .catch((err) => {
+        console.error('error at clientfetching', err);
+      });
   }
 
   getHomeData(id) {
-    let endpoint = window.location.pathname;
+    const endpoint = window.location.pathname;
     axios.get(`/rooms${endpoint}`)
       .then((response) => {
         const homeData = response.data[0];
-        this.setState({ home: homeData });
+        console.log(homeData);
+        this.setState({ oldHome: homeData });
       })
       .catch((err) => {
         console.error('error at clientfetching', err);
@@ -36,35 +109,45 @@ class App extends React.Component {
 
 
   render() {
-    if (this.state.home) {
-      return (
-        <div>
+    return (
+      <div>
           <div id="board">
             <div className="title_0 " >{this.state.home.propertyType}</div>
-            <Header data={this.state.home} />
+            <Header data={this.state.home} host={this.state.host} />
             <Accomodations data={this.state.home} />
-            <ViewsAlert data={this.state.home.numberOfViews} />
-            <Highlights data={this.state.home.highlights} />
-            <p className="paragraph">{this.state.home.descriptionSummary}</p>
-            <HomeDescription data={this.state.home.description} />
+            <ViewsAlert data={this.state.home.num_views} />
+            <Highlights data={this.state.highlights} />
+            <p className="paragraph">{this.state.home.description_comment}</p>
+            <HomeDescription data={this.state.description} />
             <div id="contactHost">
               <div className="buttonHover_1" >
                 <div className="button_1" >Contact host</div>
               </div>
             </div>
-            <Amenities data={this.state.home.amenities} />
-            <SleepingArrangements data={this.state.home} />
-            <HouseRules data={this.state.home} />
-            <Cancellations data={this.state.home} />
-            <Availability data={this.state.home} />
+
           </div>
+          <SleepingArrangements data={this.state.home} />
+          <HouseRules data={this.state.home} />
+          <Cancellations data={this.state.home} />
         </div>
-      );
-    }
-    return (
-      <div>Pending...</div>
     );
   }
 }
 
 export default App;
+/* <Accomodations data={this.state.home} />
+<ViewsAlert data={this.state.home.numberOfViews} />
+<Highlights data={this.state.home.highlights} />
+<p className="paragraph">{this.state.home.descriptionSummary}</p>
+<HomeDescription data={this.state.home.description} />
+<div id="contactHost">
+  <div className="buttonHover_1" >
+    <div className="button_1" >Contact host</div>
+  </div>
+</div>
+<Amenities data={this.state.home.amenities} />
+<SleepingArrangements data={this.state.home} />
+<HouseRules data={this.state.home} />
+<Cancellations data={this.state.home} />
+<Availability data={this.state.home} />
+*/

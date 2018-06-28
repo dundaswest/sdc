@@ -19,26 +19,26 @@ class HouseRules extends React.Component {
   }
 
   render() {
-    const smoking = this.props.data.smoking 
+    const smoking = this.props.data.smoking
       ? (
         <div className="singleRule">No smoking</div>
       )
       : (
         null
       );
-    const pets = this.props.data.petSuitable 
+    const pets = this.props.data.petSuitable
       ? (
         <div className="singleRule">No suitable for pets</div>
       ) : (
         null
       );
-    const partiesOrEvents = this.props.data.partiesOrEvents 
+    const partiesOrEvents = this.props.data.partiesOrEvents
       ? (
         <div className="singleRule">No parties or events</div>
       ) : (
         null
       );
-    const selfCheckIn = this.props.data.selfCheckInWithLockBox 
+    const selfCheckIn = this.props.data.selfCheckInWithLockBox
       ? (
         <div className="singleRule">Self check-in with lockbox</div>
       ) : (
@@ -77,8 +77,8 @@ class HouseRules extends React.Component {
             {smoking}
             {pets}
             {partiesOrEvents}
-            <div className="singleRule">{`Check-in time is ${this.props.data.checkInStartTime}PM - ${this.props.data.checkInEndTime}PM`}</div>
-            <div className="singleRule">{`Check out by ${this.props.data.checkOutTime}AM`}</div>
+            <div className="singleRule">{`Check-in time is ${this.props.data.checkin_start_time}PM - ${this.props.data.checkout_time}PM`}</div>
+            <div className="singleRule">{`Check out by ${this.props.data.checkout_time}AM`}</div>
             {selfCheckIn}
           </div>
         </div>
